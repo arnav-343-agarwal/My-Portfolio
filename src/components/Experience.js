@@ -14,7 +14,11 @@ const experiences = [
     date: "Summer 2024",
     description:
       "Developed a full-stack feature for the main consumer app using React and Node.js. Optimized database queries which resulted in a 20% performance increase.",
-    images: ["/assets/exp1-1.jpg", "/assets/exp1-2.jpg", "/assets/exp1-3.jpg"],
+    images: [
+      "/experience/samsung-2.png",
+      "/experience/samsung-2.png",
+      "/experience/samsung-4.jpeg",
+    ],
     Icon: Briefcase,
   },
   {
@@ -117,37 +121,64 @@ const Experience = () => {
         </div>
 
         {/* Cards Right */}
-        <div className="md:w-2/3 flex flex-col gap-12">
+        <div className="md:w-2/3 flex flex-col gap-16">
           {experiences.map((exp, idx) => (
             <div
-              key={idx}
-              className="exp-card p-6 md:p-8 bg-white/80 backdrop-blur-sm rounded-xl shadow-lg border border-gray-100 hover:shadow-2xl transition-shadow duration-300"
-            >
-              <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 p-3 bg-blue-100 text-blue-500 rounded-full mt-1">
-                  <exp.Icon size={24} />
+  key={idx}
+  className="exp-card relative px-4 py-6 md:px-6 md:py-8 bg-white/90 backdrop-blur-md rounded-2xl shadow-xl border border-gray-200 hover:shadow-2xl transition-shadow duration-300 min-h-[360px]"
+>
+
+              {/* Bigger Company logo */}
+              <div className="absolute -top-8 left-6 w-24 h-24 bg-white rounded-full shadow-lg flex items-center justify-center overflow-hidden">
+                <Image
+                  src={exp.images[0]}
+                  alt={`${exp.company} logo`}
+                  layout="fill"
+                  objectFit="contain"
+                />
+              </div>
+
+              <div className="flex flex-col md:flex-row gap-6 mt-10">
+                {/* Left: Icon */}
+                <div className="flex-shrink-0 p-4 bg-blue-100 text-blue-500 rounded-full self-start">
+                  <exp.Icon size={28} />
                 </div>
-                <div className="flex-1">
-                  <p className="text-sm font-semibold text-blue-600">
+
+                {/* Right: Content */}
+                <div className="flex-1 flex flex-col gap-3">
+                  <p className="text-lg md:text-2xl font-bold text-blue-700">
                     {exp.company}
                   </p>
-                  <h3 className="text-xl font-bold text-gray-800 font-heading">
+                  <h3 className="text-md md:text-lg font-semibold text-gray-800">
                     {exp.role}
                   </h3>
-                  <p className="text-xs text-gray-500 mb-3">{exp.date}</p>
-                  <p className="text-gray-600 leading-relaxed">
+                  <p className="text-xs text-gray-500">{exp.date}</p>
+                  <p className="text-gray-700 leading-relaxed">
                     {exp.description}
                   </p>
 
-                  <div className="grid grid-cols-3 gap-2 mt-4">
-                    {exp.images.map((img, i) => (
+                  {/* Extra Content */}
+                  <ul className="list-disc list-inside text-gray-700 mt-2 space-y-1">
+                    <li>
+                      Worked with React, Node.js, and MongoDB for full-stack
+                      development.
+                    </li>
+                    <li>
+                      Implemented feature X which improved user engagement by
+                      25%.
+                    </li>
+                  </ul>
+
+                  {/* Remaining images */}
+                  <div className="flex gap-4 mt-4">
+                    {exp.images.slice(1).map((img, i) => (
                       <div
                         key={i}
-                        className="relative aspect-video rounded-md overflow-hidden shadow-sm"
+                        className="relative flex-1 aspect-video rounded-md overflow-hidden shadow-sm"
                       >
                         <Image
                           src={img}
-                          alt={`${exp.role} image ${i + 1}`}
+                          alt={`${exp.role} image ${i + 2}`}
                           layout="fill"
                           objectFit="cover"
                           className="hover:scale-105 transition-transform duration-300"
