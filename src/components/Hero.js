@@ -6,26 +6,42 @@ import { ArrowRight, Mail } from 'lucide-react';
 
 const Hero = () => {
     const heroRef = useRef(null);
+    const illustrationRef = useRef(null);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
+            // Text animations
             gsap.from(".hero-title", { duration: 1, y: 50, opacity: 0, ease: "power3.out", delay: 0.2 });
             gsap.from(".hero-subheading", { duration: 1, y: 50, opacity: 0, ease: "power3.out", delay: 0.4 });
             gsap.from(".hero-buttons", { duration: 1, y: 50, opacity: 0, ease: "power3.out", delay: 0.6 });
             gsap.from(".hero-motto", { duration: 1, y: 50, opacity: 0, ease: "power3.out", delay: 0.8 });
-            gsap.from(".hero-illustration-image", { duration: 1.2, y: 100, opacity: 0, ease: "power3.out", delay: 1 });
+
+            // Illustration entrance
+            gsap.from(illustrationRef.current, { duration: 1.5, y: 100, opacity: 0, ease: "power3.out", delay: 0.8 });
+
+            // Floating animation loop
+            gsap.to(illustrationRef.current, {
+                y: "-=20",
+                rotation: 2,
+                duration: 3,
+                ease: "sine.inOut",
+                yoyo: true,
+                repeat: -1
+            });
+
+            // Skill tags animation
             gsap.from(".skill-tag", { duration: 1, scale: 0.5, opacity: 0, ease: "back.out(1.7)", stagger: 0.15, delay: 1.4 });
-            gsap.fromTo(".background-shape", { x: '-10%', y: '10%', opacity: 0 }, { duration: 2, x: '0%', y: '0%', opacity: 1, ease: 'power3.out', delay: 0.5 });
         }, heroRef);
+
         return () => ctx.revert();
     }, []);
 
     const skills = [
-        { name: 'React', position: 'top-24 -right-8' },
-        { name: 'Node JS', position: 'top-1/3 -left-16' },
+        { name: 'Problem Solving', position: 'top-24 -right-8' },
+        { name: 'Mathematics', position: 'top-1/3 -left-16' },
         { name: 'Full-Stack', position: 'bottom-1/4 -right-16' },
         { name: 'System Design', position: 'top-12 left-1/4' },
-        { name: 'Cloud Infra', position: 'top-2 left-4' },
+        { name: 'Machine Learning', position: 'top-2 left-4' },
     ];
 
     return (
@@ -63,19 +79,31 @@ const Hero = () => {
                     </p>
                 </div>
 
-                {/* Right Column: Illustration */}
+                {/* Right Column: Animated Illustration */}
+                {/* Right Column: Animated Illustration */}
                 <div className="hidden md:flex items-center justify-center h-full relative">
-                    <div className="relative w-[500px] h-[1900px]">
-                        <div className="hero-illustration-image absolute inset-0">
-                           <Image src="/hero-illustration.png" alt="Developer Illustration" fill style={{ objectFit: 'contain' }} />
-                        </div>
-                        {skills.map(skill => (
-                             <div key={skill.name} className={`skill-tag absolute ${skill.position} bg-white/80 backdrop-blur-sm text-blue-600 font-semibold py-2 px-4 rounded-lg shadow-lg`}>
-                                {skill.name}
-                            </div>
-                        ))}
+                <div
+                    ref={illustrationRef}
+                    className="relative w-[480px] h-[480px] lg:w-[580px] lg:h-[580px] cursor-pointer"
+                >
+                    <Image
+                    src="/hero-illustration.png"
+                    alt="Developer Illustration"
+                    fill
+                    style={{ objectFit: "contain" }}
+                    priority
+                    />
+                    {skills.map((skill) => (
+                    <div
+                        key={skill.name}
+                        className={`skill-tag absolute ${skill.position} bg-white/80 backdrop-blur-sm text-blue-600 font-semibold py-2 px-4 rounded-lg shadow-lg`}
+                    >
+                        {skill.name}
                     </div>
+                    ))}
                 </div>
+                </div>
+
             </div>
         </section>
     );
