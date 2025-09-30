@@ -7,6 +7,7 @@ import Projects from '@/components/Projects';
 import Contact from '@/components/Contact';
 import Background from '@/components/Background';
 import Showcase from '@/components/Showcase';
+import Quote from '@/components/Quote';
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
         <Philosophy />
         <Experience />
         <Skills />
+        <Quote/>
         <Projects />
         <Contact />
       </div>
