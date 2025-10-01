@@ -8,6 +8,7 @@ import Contact from '@/components/Contact';
 import Background from '@/components/Background';
 import Showcase from '@/components/Showcase';
 import Quote from '@/components/Quote';
+import Touch from '@/components/Touch';
 
 export default function Home() {
   return (
@@ -22,6 +23,7 @@ export default function Home() {
         <Quote/>
         <Projects />
         <Contact />
+        <Touch/>
       </div>
     </main>
   );
