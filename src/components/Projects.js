@@ -28,35 +28,45 @@ const Projects = () => {
 
   return (
     <section id="projects" className="relative container mx-auto py-24 px-6">
-      {/* Heading - Left aligned near GIF */}
-      <motion.h2
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
-        className="text-6xl md:text-7xl font-extrabold mb-24 tracking-tight relative z-10 ml-6 md:ml-10 lg:ml-16 text-blue-600"
-        style={{ fontFamily: '"Merriweather", serif' }}
-      >
-        What I&apos;ve Built
-      </motion.h2>
+      {/* GIF + Heading/Text Horizontal Layout */}
+      <div className="flex flex-col md:flex-row items-center md:items-start mb-10 relative z-10">
+        {/* GIF on left */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1 }}
+          viewport={{ once: true }}
+          className="w-[280px] md:w-[360px] lg:w-[420px] mb-8 md:mb-0 mr-0 md:mr-12 lg:mr-16 flex-shrink-0"
+        >
+          <Image
+            src="/project/sde-gif-2.gif"
+            alt="Developer working"
+            width={550}
+            height={550}
+            unoptimized
+            className="w-full h-auto"
+          />
+        </motion.div>
 
-      {/* Big Developer GIF - Slightly left shift for better alignment */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1 }}
-        viewport={{ once: true }}
-        className="absolute top-0 left-0 md:left-6 lg:left-10 w-[280px] md:w-[360px] lg:w-[420px] -translate-y-12 z-0 opacity-80 pointer-events-none"
-      >
-        <Image
-          src="/project/sde-gif.gif"
-          alt="Developer working"
-          width={420}
-          height={420}
-          unoptimized
-          className="w-full h-auto"
-        />
-      </motion.div>
+        {/* Heading/Text on right */}
+        <motion.div
+          initial={{ opacity: 0, x: 40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="flex-1"
+        >
+          <h2
+            className="text-5xl md:text-6xl font-bold mb-6 text-blue-900 tracking-tight"
+            style={{ fontFamily: '"Merriweather", serif' }}
+          >
+            What I&apos;ve Built
+          </h2>
+          <p className="text-lg md:text-xl text-blue-800 leading-relaxed font-light max-w-xl">
+            Here are some of the projects I have worked on, combining modern web technologies, creativity, and performance. Each project highlights my skills and approach towards building efficient and interactive applications.
+          </p>
+        </motion.div>
+      </div>
 
       {/* Projects Grid */}
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 relative z-10">

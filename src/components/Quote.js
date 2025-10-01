@@ -61,7 +61,7 @@ const Quote = () => {
         ref={imageRef}
         className="absolute inset-0 bg-cover bg-center"
         style={{
-          backgroundImage: 'url(/blue-bg.jpg)',
+          backgroundImage: 'url(/blue-bg-2.jpg)',
           clipPath: 'ellipse(100% 85% at 50% 50%)'
         }}
       >
