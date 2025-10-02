@@ -53,7 +53,7 @@ const About = () => {
 
   return (
     <section ref={sectionRef} className="relative container mx-auto py-24">
-      <h2 className="text-center text-5xl font-bold mb-10 text-blue-900">
+      <h2 className="text-center text-5xl font-bold mb-6 text-blue-900">
         Professional Snapshot
       </h2>
 
