@@ -10,9 +10,9 @@ const About = () => {
   const sectionRef = useRef(null);
 
   const paras = [
-    "Currently in my final year of Computer Science at XYZ University, I focus on building interactive and scalable applications. I enjoy exploring both frontend and backend development, making sure every project is maintainable, efficient, and well-structured.",
-    "I strive to write clean, efficient, and maintainable code that delivers real-world value for users. Beyond coding, I enjoy designing thoughtful system architectures and ensuring that every solution I build is elegant and practical.",
-    "I constantly explore new technologies, improve problem-solving skills on platforms like LeetCode & GeeksforGeeks, and stay updated with industry trends. My goal is to not just write code, but to build applications that are intuitive, efficient, and impactful.",
+    "I’m Arnav Agarwal, a final-year Computer Science and Engineering student at SRM Institute of Science and Technology. I love problem-solving and spend time on platforms like LeetCode and Codeforces, continuously sharpening my algorithmic thinking and exploring new ways to approach challenging coding problems. Programming, for me, is not just a skill but a way to creatively tackle complex problems and build solutions that matter.",
+    "I’ve built amazing web applications that balance performance with clean, intuitive design and incorporate innovative ideas. From interactive front-end experiences to efficient back-end systems, I enjoy creating projects that are both functional and user-friendly. I also have a strong interest in system design, exploring how different components interact, scale, and remain reliable under demanding conditions.",
+    "Alongside software development, I’m deeply passionate about mathematics — particularly probability, statistics, and calculus — which forms the foundation for my growing expertise in machine learning. I enjoy experimenting with data and algorithms to uncover smarter, more efficient solutions, constantly learning and applying mathematical concepts to real-world problems.",
   ];
 
   useEffect(() => {
@@ -58,18 +58,16 @@ const About = () => {
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-        {/* One GIF on left */}
         {/* One GIF on left with proper wavy mask */}
-        <div className="relative w-full max-w-lg h-[500px] md:h-[580px] flex items-center justify-center">
+        <div className="relative w-full max-w-xl h-[550px] md:h-[620px] flex items-center justify-center">
           {/* SVG clipPath definition */}
           <svg className="absolute w-0 h-0">
             <clipPath id="wavyClip" clipPathUnits="objectBoundingBox">
-              {/* This path fills the full rect with wavy edges */}
               <path
                 d="M0,0.2 
-               C0.25,0.1,0.75,0.3,1,0.2 
-               L1,0.8 
-               C0.75,0.7,0.25,0.9,0,0.8 Z"
+           C0.25,0.1,0.75,0.3,1,0.2 
+           L1,0.8 
+           C0.75,0.7,0.25,0.9,0,0.8 Z"
               />
             </clipPath>
           </svg>
