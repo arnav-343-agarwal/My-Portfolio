@@ -39,15 +39,6 @@ const experiences = [
     images: ["/assets/exp3-1.jpg", "/assets/exp3-2.jpg", "/assets/exp3-3.jpg"],
     Icon: Code,
   },
-  {
-    role: "Head of University Coding Club",
-    company: "XYZ University",
-    date: "2022-2023",
-    description:
-      "Organized workshops and coding competitions for over 200 students, fostering a collaborative and competitive learning environment.",
-    images: ["/assets/exp4-1.jpg", "/assets/exp4-2.jpg", "/assets/exp4-3.jpg"],
-    Icon: Users,
-  },
 ];
 
 const Experience = () => {
@@ -98,15 +89,15 @@ const Experience = () => {
         My Journey So Far
       </h2>
 
-      <div className="flex flex-col md:flex-row gap-12 relative max-w-6xl mx-auto md:translate-x-[-5%]">
+      <div className="flex flex-col md:flex-row gap-12 relative max-w-6xl mx-auto md:translate-x-[-8%]">
         {/* Timeline Left */}
-        <div className="relative md:w-1/3 flex flex-col items-center">
+        <div className="relative md:w-1/4 flex flex-col items-center">
           {/* Vertical line */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gray-200 rounded-full"></div>
+          <div className="absolute left-[45%] h-full w-1 bg-gray-200 rounded-full"></div>
           {/* Animated progress */}
           <div
             ref={progressRef}
-            className="absolute left-1/2 transform -translate-x-1/2 top-0 h-0 w-1 bg-gradient-to-b from-blue-500 to-purple-500 rounded-full origin-top"
+            className="absolute left-[45%] top-0 h-0 w-1 bg-gradient-to-b from-blue-500 to-purple-500 rounded-full origin-top"
           ></div>
 
           {/* Dots and dates */}
@@ -121,24 +112,13 @@ const Experience = () => {
         </div>
 
         {/* Cards Right */}
-        <div className="md:w-2/3 flex flex-col gap-16">
+        <div className="md:w-3/4 flex flex-col gap-16">
           {experiences.map((exp, idx) => (
             <div
-  key={idx}
-  className="exp-card relative px-4 py-6 md:px-6 md:py-8 bg-white/90 backdrop-blur-md rounded-2xl shadow-xl border border-gray-200 hover:shadow-2xl transition-shadow duration-300 min-h-[360px]"
->
-
-              {/* Bigger Company logo */}
-              <div className="absolute -top-8 left-6 w-24 h-24 bg-white rounded-full shadow-lg flex items-center justify-center overflow-hidden">
-                <Image
-                  src={exp.images[0]}
-                  alt={`${exp.company} logo`}
-                  layout="fill"
-                  objectFit="contain"
-                />
-              </div>
-
-              <div className="flex flex-col md:flex-row gap-6 mt-10">
+              key={idx}
+              className="exp-card relative px-6 py-8 bg-white/90 backdrop-blur-md rounded-2xl shadow-xl border border-gray-200 hover:shadow-2xl transition-shadow duration-300 min-h-[300px]"
+            >
+              <div className="flex flex-col md:flex-row gap-6">
                 {/* Left: Icon */}
                 <div className="flex-shrink-0 p-4 bg-blue-100 text-blue-500 rounded-full self-start">
                   <exp.Icon size={28} />
