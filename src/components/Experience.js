@@ -9,25 +9,25 @@ gsap.registerPlugin(ScrollTrigger);
 
 const experiences = [
   {
-    role: "Software Engineer Intern",
-    company: "Tech Giant Inc.",
-    date: "Summer 2024",
+    role: "Software Engineer Intern (Upcoming...)",
+    company: "Booking Holdings",
+    date: "January 2026",
     description:
       "Developed a full-stack feature for the main consumer app using React and Node.js. Optimized database queries which resulted in a 20% performance increase.",
     images: [
-      "/experience/samsung-2.png",
-      "/experience/samsung-2.png",
-      "/experience/samsung-4.jpeg",
+      "/experience/bh-logo-1.png",
+      "/experience/bh-logo-1.png",
+      "/experience/bh-logo-2.jpg",
     ],
     Icon: Briefcase,
   },
   {
-    role: "Web Development Intern",
-    company: "Creative Startup",
-    date: "Winter 2023",
+    role: "Research and Development Intern",
+    company: "Samsung",
+    date: "Jan 2024 - Aug 2024",
     description:
       "Redesigned and implemented the company's marketing website using Next.js. Improved SEO scores by 30% and page load times by 50%.",
-    images: ["/assets/exp2-1.jpg", "/assets/exp2-2.jpg", "/assets/exp2-3.jpg"],
+    images: ["/assets/exp2-1.jpg", "/experience/samsungresearch.jpeg", "/experience/samsung-2.png"],
     Icon: Code,
   },
   {
@@ -125,7 +125,7 @@ const Experience = () => {
                 </div>
 
                 {/* Right: Content */}
-                <div className="flex-1 flex flex-col gap-3">
+                <div className="flex-1 flex flex-col gap-1">
                   <p className="text-lg md:text-2xl font-bold text-blue-700">
                     {exp.company}
                   </p>
@@ -150,6 +150,7 @@ const Experience = () => {
                   </ul>
 
                   {/* Remaining images */}
+                  {/* Remaining images */}
                   <div className="flex gap-4 mt-4">
                     {exp.images.slice(1).map((img, i) => (
                       <div
@@ -159,9 +160,10 @@ const Experience = () => {
                         <Image
                           src={img}
                           alt={`${exp.role} image ${i + 2}`}
-                          layout="fill"
-                          objectFit="cover"
+                          fill
+                          style={{ objectFit: "cover" }}
                           className="hover:scale-105 transition-transform duration-300"
+                          unoptimized
                         />
                       </div>
                     ))}
