@@ -181,7 +181,7 @@ const Experience = () => {
         My Journey So Far
       </h2>
 
-      <div className="relative max-w-6xl mx-auto pl-8 md:pl-16">
+      <div className="relative max-w-5xl mx-auto pl-4 md:pl-8">
         {/* Enhanced Timeline */}
         <div className="flex flex-col md:flex-row gap-8 relative">
           
