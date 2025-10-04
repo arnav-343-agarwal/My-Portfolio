@@ -17,6 +17,7 @@ const Skills = () => {
     const sectionRef = useRef(null);
     const skillsRef = useRef([]);
     const orbitRef = useRef(null);
+    const textContentRef = useRef(null);
 
     const skills = [
         { name: 'React', Icon: SiReact, color: 'text-cyan-500' },
@@ -65,6 +66,19 @@ const Skills = () => {
                 }
             });
 
+            // Text content animation
+            gsap.from(".text-content", {
+                x: 100,
+                opacity: 0,
+                duration: 1.2,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: sectionRef.current,
+                    start: "top 70%",
+                    toggleActions: "play none none reverse"
+                }
+            });
+
             // Individual skills animation
             skillsRef.current.forEach((skill, index) => {
                 if (!skill) return;
@@ -91,8 +105,8 @@ const Skills = () => {
                 // Hover animations
                 skill.addEventListener('mouseenter', () => {
                     gsap.to(skill, {
-                        scale: 1.2,
-                        y: -10,
+                        scale: 1.3,
+                        y: -15,
                         duration: 0.3,
                         ease: "power2.out"
                     });
@@ -140,7 +154,7 @@ const Skills = () => {
     // Calculate positions for circular layout
     const getSkillPosition = (index, total) => {
         const angle = (index / total) * 2 * Math.PI;
-        const radius = 200; // Orbit radius
+        const radius = 220; // Adjusted for better fit in 60% width
         return {
             x: Math.cos(angle) * radius,
             y: Math.sin(angle) * radius
@@ -151,89 +165,155 @@ const Skills = () => {
         <section 
             id="skills" 
             ref={sectionRef}
-            className="relative min-h-screen py-24 bg-gradient-to-br from-slate-50 via-white to-blue-50 overflow-hidden"
+            className="relative min-h-screen py-20 bg-gradient-to-br from-slate-50 via-white to-blue-50 overflow-hidden"
         >
             {/* Subtle background pattern */}
             <div className="absolute inset-0 opacity-5">
                 <div className="w-full h-full" style={{
-                    backgroundImage: `radial-gradient(circle at 30px 30px, #3b82f6 1px, transparent 0)`,
-                    backgroundSize: '60px 60px',
+                    backgroundImage: `radial-gradient(circle at 40px 40px, #3b82f6 2px, transparent 0)`,
+                    backgroundSize: '80px 80px',
                 }} />
             </div>
 
-            <div className="relative max-w-6xl mx-auto px-4 text-center">
-                <h2 className="skills-title text-5xl md:text-6xl font-bold mb-20 text-gray-800">
+            <div className="relative max-w-7xl mx-auto px-6">
+                {/* Title */}
+                <h2 className="skills-title text-4xl md:text-6xl font-bold mb-16 text-gray-800 text-center">
                     Tech Stack
                 </h2>
 
-                {/* Central Orbit Container */}
-                <div className="relative h-[600px] flex items-center justify-center">
-                    {/* Central Element - Circular GIF */}
-                    <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="w-32 h-32 rounded-full overflow-hidden shadow-2xl border-4 border-white">
-                            <Image
-                                src="/student.gif"
-                                alt="Tech Core"
-                                width={128}
-                                height={128}
-                                className="w-full h-full object-cover"
-                                unoptimized
-                            />
+                {/* 60-40 Split Layout */}
+                <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
+                    
+                    {/* Left Side - 60% - Orbit Container */}
+                    <div className="lg:col-span-3 flex justify-center lg:justify-start">
+                        <div className="relative h-[600px] w-full max-w-[600px] flex items-center justify-center">
+                            {/* Central Element - Circular GIF */}
+                            <div className="absolute inset-0 flex items-center justify-center">
+                                <div className="w-62 h-62 rounded-full overflow-hidden shadow-2xl border-4 border-white">
+                                    <Image
+                                        src="/student.gif"
+                                        alt="Tech Core"
+                                        width={224}
+                                        height={224}
+                                        className="w-full h-full object-cover"
+                                        unoptimized
+                                    />
+                                </div>
+                            </div>
+
+                            {/* Skills Orbit */}
+                            <div ref={orbitRef} className="skill-orbit absolute inset-0">
+                                {skills.map((skill, index) => {
+                                    const position = getSkillPosition(index, skills.length);
+                                    return (
+                                        <div
+                                            key={index}
+                                            ref={addToRefs}
+                                            className="skill-item absolute cursor-pointer group"
+                                            style={{
+                                                left: `calc(50% + ${position.x}px)`,
+                                                top: `calc(50% + ${position.y}px)`,
+                                                transform: 'translate(-50%, -50%)'
+                                            }}
+                                        >
+                                            {/* Skill Card */}
+                                            <div className="relative bg-white/90 backdrop-blur-md rounded-3xl border-2 border-gray-200 p-4 shadow-2xl hover:shadow-3xl transition-all duration-300 w-28 h-28 flex flex-col items-center justify-center">
+                                                <skill.Icon className={`w-12 h-12 ${skill.color} mb-2`} />
+                                                <span className="text-sm font-bold text-gray-800 text-center leading-tight">
+                                                    {skill.name}
+                                                </span>
+                                                
+                                                {/* Hover Glow */}
+                                                <div className="absolute inset-0 rounded-3xl bg-white opacity-0 group-hover:opacity-20 blur-md -z-10 transition-opacity duration-300" />
+                                            </div>
+
+                                            {/* Connecting Line */}
+                                            <div className="absolute top-1/2 left-1/2 w-1 h-24 bg-gray-300/50 -translate-y-24 -translate-x-1/2 -z-20 origin-top" 
+                                                 style={{ transform: `translate(-50%, -100%) rotate(${(index / skills.length) * 360}deg)` }} />
+                                        </div>
+                                    );
+                                })}
+                            </div>
+
+                            {/* Outer Rings */}
+                            <div className="absolute inset-0 border-3 border-gray-200/50 rounded-full m-16 -z-10"></div>
+                            <div className="absolute inset-0 border-2 border-gray-200/30 rounded-full m-28 -z-10"></div>
+                            <div className="absolute inset-0 border border-gray-200/20 rounded-full m-40 -z-10"></div>
                         </div>
                     </div>
 
-                    {/* Skills Orbit */}
-                    <div ref={orbitRef} className="skill-orbit absolute inset-0">
-                        {skills.map((skill, index) => {
-                            const position = getSkillPosition(index, skills.length);
-                            return (
-                                <div
-                                    key={index}
-                                    ref={addToRefs}
-                                    className="skill-item absolute cursor-pointer group"
-                                    style={{
-                                        left: `calc(50% + ${position.x}px)`,
-                                        top: `calc(50% + ${position.y}px)`,
-                                        transform: 'translate(-50%, -50%)'
-                                    }}
-                                >
-                                    {/* Skill Card */}
-                                    <div className="relative bg-white/90 backdrop-blur-md rounded-2xl border border-gray-200 p-4 shadow-lg hover:shadow-2xl transition-all duration-300 w-24 h-24 flex flex-col items-center justify-center">
-                                        <skill.Icon className={`w-10 h-10 ${skill.color} mb-2`} />
-                                        <span className="text-xs font-semibold text-gray-700 text-center leading-tight">
-                                            {skill.name}
-                                        </span>
-                                        
-                                        {/* Hover Glow */}
-                                        <div className="absolute inset-0 rounded-2xl bg-white opacity-0 group-hover:opacity-20 blur-sm -z-10 transition-opacity duration-300" />
-                                    </div>
+                    {/* Right Side - 40% - Text Content */}
+                    <div className="lg:col-span-2 text-content">
+                        <div ref={textContentRef} className="space-y-8">
+                            {/* Main Description */}
+                            <div>
+                                <h3 className="text-3xl font-bold text-gray-800 mb-4">
+                                    My Technical Arsenal
+                                </h3>
+                                <p className="text-lg text-gray-600 leading-relaxed">
+                                    A comprehensive collection of modern technologies and tools that power 
+                                    cutting-edge web development. From creating interactive user interfaces 
+                                    to building scalable backend systems.
+                                </p>
+                            </div>
 
-                                    {/* Connecting Line */}
-                                    <div className="absolute top-1/2 left-1/2 w-px h-20 bg-gray-300/50 -translate-y-20 -translate-x-1/2 -z-20 origin-top" 
-                                         style={{ transform: `translate(-50%, -100%) rotate(${(index / skills.length) * 360}deg)` }} />
+                            {/* Skills Categories */}
+                            <div className="space-y-6">
+                                <div>
+                                    <h4 className="text-xl font-semibold text-gray-800 mb-3">Frontend Mastery</h4>
+                                    <p className="text-gray-600 leading-relaxed">
+                                        React, Next.js, TypeScript, and modern CSS frameworks for creating 
+                                        responsive and engaging user experiences.
+                                    </p>
                                 </div>
-                            );
-                        })}
+
+                                <div>
+                                    <h4 className="text-xl font-semibold text-gray-800 mb-3">Backend Expertise</h4>
+                                    <p className="text-gray-600 leading-relaxed">
+                                        Node.js, Python, and Express for building robust server-side 
+                                        applications and APIs.
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <h4 className="text-xl font-semibold text-gray-800 mb-3">Database & DevOps</h4>
+                                    <p className="text-gray-600 leading-relaxed">
+                                        MongoDB, PostgreSQL, Docker, and AWS for efficient data management 
+                                        and seamless deployment.
+                                    </p>
+                                </div>
+                            </div>
+
+                            {/* Stats or Highlights */}
+                            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-200">
+                                <h4 className="text-xl font-semibold text-gray-800 mb-4">Why This Stack?</h4>
+                                <ul className="space-y-3 text-gray-600">
+                                    <li className="flex items-center gap-3">
+                                        <div className="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                                        <span>Proven technologies for scalable applications</span>
+                                    </li>
+                                    <li className="flex items-center gap-3">
+                                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                                        <span>Modern development practices and workflows</span>
+                                    </li>
+                                    <li className="flex items-center gap-3">
+                                        <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                                        <span>Strong community support and documentation</span>
+                                    </li>
+                                    <li className="flex items-center gap-3">
+                                        <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
+                                        <span>Continuous learning and adaptation to new trends</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-
-                    {/* Outer Ring */}
-                    <div className="absolute inset-0 border-2 border-gray-200/50 rounded-full m-20 -z-10"></div>
-                    <div className="absolute inset-0 border border-gray-200/30 rounded-full m-32 -z-10"></div>
-                </div>
-
-                {/* Bottom Description */}
-                <div className="mt-20 max-w-2xl mx-auto">
-                    <p className="text-xl text-gray-600 leading-relaxed">
-                        A versatile collection of technologies and tools that power modern web development, 
-                        from interactive frontends to scalable backends and everything in between.
-                    </p>
                 </div>
             </div>
 
             {/* Floating decorative elements */}
-            <div className="absolute top-1/4 left-10 w-16 h-16 bg-blue-100 rounded-full blur-xl opacity-40"></div>
-            <div className="absolute bottom-1/4 right-10 w-20 h-20 bg-cyan-100 rounded-full blur-xl opacity-40"></div>
-            <div className="absolute top-1/3 right-1/4 w-12 h-12 bg-purple-100 rounded-full blur-xl opacity-30"></div>
+            <div className="absolute top-1/4 left-10 w-20 h-20 bg-blue-100 rounded-full blur-xl opacity-40"></div>
+            <div className="absolute bottom-1/4 right-10 w-24 h-24 bg-cyan-100 rounded-full blur-xl opacity-40"></div>
         </section>
     );
 };
