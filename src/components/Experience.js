@@ -2,7 +2,6 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Briefcase, Code, Users } from "lucide-react";
 import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -19,7 +18,6 @@ const experiences = [
       "/experience/bh-logo-1.png",
       "/experience/bh-logo-2.jpg",
     ],
-    Icon: Briefcase,
     type: "work"
   },
   {
@@ -29,7 +27,6 @@ const experiences = [
     description:
       "Redesigned and implemented the company's marketing website using Next.js. Improved SEO scores by 30% and page load times by 50%.",
     images: ["/assets/exp2-1.jpg", "/experience/samsungresearch.jpeg", "/experience/samsung-2.png"],
-    Icon: Code,
     type: "intern"
   },
   {
@@ -39,14 +36,12 @@ const experiences = [
     description:
       "Contributed features and bug fixes to a popular open-source library, collaborating with developers worldwide and learning about CI/CD pipelines.",
     images: ["/assets/exp3-1.jpg", "/assets/exp3-2.jpg", "/assets/exp3-3.jpg"],
-    Icon: Code,
     type: "opensource"
   },
 ];
 
 const Experience = () => {
   const sectionRef = useRef(null);
-  const progressRef = useRef(null);
   const itemsRef = useRef([]);
 
   useEffect(() => {
@@ -186,12 +181,12 @@ const Experience = () => {
         My Journey So Far
       </h2>
 
-      <div className="relative max-w-6xl mx-auto">
+      <div className="relative max-w-6xl mx-auto pl-8 md:pl-16">
         {/* Enhanced Timeline */}
-        <div className="flex flex-col md:flex-row gap-12 relative">
+        <div className="flex flex-col md:flex-row gap-8 relative">
           
-          {/* Left: Enhanced Timeline */}
-          <div className="relative md:w-1/4 flex flex-col items-center">
+          {/* Left: Enhanced Timeline - Made more compact */}
+          <div className="relative md:w-1/5 flex flex-col items-center">
             {/* Central Timeline Connector */}
             <div className="timeline-connector absolute left-1/2 transform -translate-x-1/2 w-1 bg-gradient-to-b from-blue-400 to-cyan-400 h-full rounded-full shadow-lg"></div>
             
@@ -200,14 +195,14 @@ const Experience = () => {
               {experiences.map((exp, idx) => (
                 <div key={idx} className="flex flex-col items-center relative">
                   {/* Timeline Node */}
-                  <div className="timeline-node relative w-6 h-6 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 shadow-lg border-4 border-white z-10">
+                  <div className="timeline-node relative w-5 h-5 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 shadow-lg border-3 border-white z-10">
                     {/* Pulse Ring */}
                     <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 animate-ping opacity-60" />
                   </div>
                   
-                  {/* Year Marker */}
-                  <div className="year-marker absolute top-1/2 left-12 transform -translate-y-1/2 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg border border-white/60">
-                    <span className="font-bold text-slate-700 text-sm">
+                  {/* Year Marker - Moved closer */}
+                  <div className="year-marker absolute top-1/2 left-8 transform -translate-y-1/2 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full shadow-lg border border-white/60">
+                    <span className="font-bold text-slate-700 text-xs">
                       {exp.date.split(' ')[exp.date.split(' ').length - 1]}
                     </span>
                   </div>
@@ -217,73 +212,66 @@ const Experience = () => {
 
             {/* Start/End Markers */}
             <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-2">
-              <div className="w-4 h-4 bg-blue-500 rounded-full animate-pulse" />
+              <div className="w-3 h-3 bg-blue-500 rounded-full animate-pulse" />
             </div>
             <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-2">
-              <div className="w-4 h-4 bg-cyan-500 rounded-full animate-pulse" />
+              <div className="w-3 h-3 bg-cyan-500 rounded-full animate-pulse" />
             </div>
           </div>
 
-          {/* Right: Your Cards (Enhanced) */}
-          <div className="md:w-3/4 flex flex-col gap-16">
+          {/* Right: Your Cards (Without Icons) - Expanded width */}
+          <div className="md:w-4/5 flex flex-col gap-12">
             {experiences.map((exp, idx) => (
               <div
                 key={idx}
                 ref={addToRefs}
-                className="exp-card relative px-6 py-8 bg-white/90 backdrop-blur-md rounded-2xl shadow-xl border border-gray-200 hover:shadow-2xl transition-all duration-300 min-h-[300px] transform-style-3d"
+                className="exp-card relative px-6 py-6 bg-white/90 backdrop-blur-md rounded-2xl shadow-xl border border-gray-200 hover:shadow-2xl transition-all duration-300 min-h-[280px] transform-style-3d"
               >
                 {/* Gradient Accent Line */}
-                <div className={`absolute top-0 left-0 w-2 h-full bg-gradient-to-b ${getTypeColor(exp.type)} rounded-l-2xl`} />
+                <div className={`absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b ${getTypeColor(exp.type)} rounded-l-2xl`} />
                 
-                <div className="flex flex-col md:flex-row gap-6">
-                  {/* Left: Icon */}
-                  <div className="flex-shrink-0 p-4 bg-blue-100 text-blue-500 rounded-full self-start">
-                    <exp.Icon size={28} />
-                  </div>
+                {/* Content - No Icon Container */}
+                <div className="flex flex-col gap-3 pl-4">
+                  <p className="text-xl md:text-2xl font-bold text-blue-700">
+                    {exp.company}
+                  </p>
+                  <h3 className="text-md md:text-lg font-semibold text-gray-800">
+                    {exp.role}
+                  </h3>
+                  <p className="text-xs text-gray-500">{exp.date}</p>
+                  <p className="text-gray-700 leading-relaxed text-sm">
+                    {exp.description}
+                  </p>
 
-                  {/* Right: Content */}
-                  <div className="flex-1 flex flex-col gap-1">
-                    <p className="text-lg md:text-2xl font-bold text-blue-700">
-                      {exp.company}
-                    </p>
-                    <h3 className="text-md md:text-lg font-semibold text-gray-800">
-                      {exp.role}
-                    </h3>
-                    <p className="text-xs text-gray-500">{exp.date}</p>
-                    <p className="text-gray-700 leading-relaxed">
-                      {exp.description}
-                    </p>
+                  {/* Extra Content */}
+                  <ul className="list-disc list-inside text-gray-700 mt-1 space-y-1 text-sm">
+                    <li>
+                      Worked with React, Node.js, and MongoDB for full-stack
+                      development.
+                    </li>
+                    <li>
+                      Implemented feature X which improved user engagement by
+                      25%.
+                    </li>
+                  </ul>
 
-                    {/* Extra Content */}
-                    <ul className="list-disc list-inside text-gray-700 mt-2 space-y-1">
-                      <li>
-                        Worked with React, Node.js, and MongoDB for full-stack
-                        development.
-                      </li>
-                      <li>
-                        Implemented feature X which improved user engagement by
-                        25%.
-                      </li>
-                    </ul>
-
-                    {/* Images */}
-                    <div className="flex gap-4 mt-4">
-                      {exp.images.slice(1).map((img, i) => (
-                        <div
-                          key={i}
-                          className="relative flex-1 aspect-video rounded-md overflow-hidden shadow-sm"
-                        >
-                          <Image
-                            src={img}
-                            alt={`${exp.role} image ${i + 2}`}
-                            fill
-                            style={{ objectFit: "cover" }}
-                            className="hover:scale-105 transition-transform duration-300"
-                            unoptimized
-                          />
-                        </div>
-                      ))}
-                    </div>
+                  {/* Images */}
+                  <div className="flex gap-3 mt-3">
+                    {exp.images.slice(1).map((img, i) => (
+                      <div
+                        key={i}
+                        className="relative flex-1 aspect-video rounded-md overflow-hidden shadow-sm"
+                      >
+                        <Image
+                          src={img}
+                          alt={`${exp.role} image ${i + 2}`}
+                          fill
+                          style={{ objectFit: "cover" }}
+                          className="hover:scale-105 transition-transform duration-300"
+                          unoptimized
+                        />
+                      </div>
+                    ))}
                   </div>
                 </div>
 

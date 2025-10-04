@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -10,6 +10,7 @@ const About = () => {
   const sectionRef = useRef(null);
   const imageRef = useRef(null);
   const titleRef = useRef(null);
+  const [isMounted, setIsMounted] = useState(false);
 
   const paras = [
     {
@@ -26,7 +27,32 @@ const About = () => {
     },
   ];
 
+  // Fixed particle positions (same on server and client)
+  const fixedParticles = [
+    { left: "12%", top: "76%" },
+    { left: "36%", top: "29%" },
+    { left: "39%", top: "41%" },
+    { left: "86%", top: "95%" },
+    { left: "11%", top: "5%" },
+    { left: "79%", top: "75%" },
+    { left: "19%", top: "49%" },
+    { left: "91%", top: "69%" },
+    { left: "89%", top: "42%" },
+    { left: "63%", top: "60%" },
+    { left: "16%", top: "51%" },
+    { left: "99%", top: "98%" },
+    { left: "59%", top: "83%" },
+    { left: "63%", top: "91%" },
+    { left: "1%", top: "84%" },
+  ];
+
   useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isMounted) return;
+
     const ctx = gsap.context(() => {
       // Animate title
       gsap.from(titleRef.current, {
@@ -124,38 +150,40 @@ const About = () => {
         ease: "sine.inOut"
       });
 
-      // Particle background effect
-      const particles = gsap.utils.toArray(".particle");
-      particles.forEach((particle, i) => {
-        gsap.to(particle, {
-          x: "random(-100, 100)",
-          y: "random(-100, 100)",
-          rotation: "random(-180, 180)",
-          duration: "random(3, 6)",
-          repeat: -1,
-          yoyo: true,
-          ease: "sine.inOut",
-          delay: "random(0, 2)"
+      // Particle background effect - ONLY on client side
+      if (isMounted) {
+        const particles = gsap.utils.toArray(".particle");
+        particles.forEach((particle, i) => {
+          gsap.to(particle, {
+            x: "random(-50, 50)",
+            y: "random(-50, 50)",
+            rotation: "random(-90, 90)",
+            duration: "random(4, 8)",
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut",
+            delay: "random(0, 3)"
+          });
         });
-      });
+      }
 
     }, sectionRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [isMounted]);
 
   return (
     <section ref={sectionRef} className="relative w-full min-h-screen py-24 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 overflow-hidden">
       
-      {/* Animated background particles */}
+      {/* Animated background particles - FIXED POSITIONS */}
       <div className="absolute inset-0 opacity-10">
-        {[...Array(15)].map((_, i) => (
+        {fixedParticles.map((particle, i) => (
           <div
             key={i}
             className="particle absolute w-2 h-2 bg-blue-400 rounded-full"
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
+              left: particle.left,
+              top: particle.top,
             }}
           />
         ))}
@@ -180,7 +208,7 @@ const About = () => {
         {/* Enhanced GIF container - Centered with proper spacing */}
         <div 
           ref={imageRef}
-          className="relative w-full max-w-2xl h-[550px] flex items-center justify-center mx-auto lg:ml-12" // Added left margin on large screens
+          className="relative w-full max-w-2xl h-[550px] flex items-center justify-center mx-auto lg:ml-12"
         >
           {/* Glass morphism container */}
           <div className="absolute inset-0 bg-white/10 backdrop-blur-md rounded-3xl border border-white/20 shadow-2xl transform perspective-1000">
@@ -221,10 +249,10 @@ const About = () => {
         </div>
 
         {/* Enhanced paragraphs container - Elevated and centered */}
-        <div className="relative h-80 overflow-hidden flex items-center justify-center -mt-8"> {/* Added negative margin to elevate */}
+        <div className="relative h-80 overflow-hidden flex items-center justify-center -mt-8">
           <div className="relative w-full max-w-2xl">
             {paras.map((item, idx) => (
-              <div key={idx} className="about-content absolute inset-0 flex flex-col justify-center"> {/* Added flex centering */}
+              <div key={idx} className="about-content absolute inset-0 flex flex-col justify-center">
                 <h3 className="about-highlight text-3xl font-bold text-center mb-6 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
                   {item.highlight}
                 </h3>
