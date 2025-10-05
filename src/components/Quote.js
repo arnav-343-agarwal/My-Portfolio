@@ -1,8 +1,8 @@
-'use client';
-import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Quote as QuoteIcon } from 'lucide-react';
+"use client";
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Quote as QuoteIcon } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -25,8 +25,8 @@ const Quote = () => {
           trigger: section,
           start: "top bottom",
           end: "bottom top",
-          scrub: true
-        }
+          scrub: true,
+        },
       });
 
       // Text animation
@@ -42,8 +42,8 @@ const Quote = () => {
           scrollTrigger: {
             trigger: section,
             start: "top 80%",
-            toggleActions: "play none none reverse"
-          }
+            toggleActions: "play none none reverse",
+          },
         }
       );
     }, sectionRef);
@@ -52,36 +52,37 @@ const Quote = () => {
   }, []);
 
   return (
-    <section 
-  ref={sectionRef} 
-  className="relative min-h-[80vh] flex items-center justify-center my-32 overflow-hidden"
->
-  {/* Container with proper rounded corners */}
-  <div className="absolute inset-0 overflow-hidden rounded-[2rem] mx-4">
-    <div
-      ref={imageRef}
-      className="absolute inset-0 bg-cover bg-center"
-      style={{
-        backgroundImage: 'url(/blue-bg-2.jpg)'
-      }}
+    <section
+      ref={sectionRef}
+      className="relative min-h-[80vh] flex items-center justify-center my-1 overflow-hidden"
     >
-      <div className="absolute inset-0 bg-blue-900/60"></div>
-    </div>
-  </div>
+      {/* Container with proper rounded corners */}
+      <div className="absolute inset-0 overflow-hidden rounded-[2rem] mx-4">
+        <div
+          ref={imageRef}
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: "url(/blue-bg-2.jpg)",
+          }}
+        >
+          <div className="absolute inset-0 bg-blue-900/60"></div>
+        </div>
+      </div>
 
-  {/* Text - EXACTLY AS YOUR ORIGINAL */}
-  <div
-    ref={textRef}
-    className="relative z-10 text-center text-white max-w-4xl mx-auto px-6"
-    style={{ fontFamily: '"Playfair Display", serif' }}
-  >
-    <QuoteIcon className="mx-auto w-16 h-16 text-white/70 mb-6 drop-shadow-lg" />
-    <blockquote className="text-3xl md:text-5xl font-medium italic leading-snug">
-      "The advance of technology is based on making it fit in so that you don't really even notice it, so it's part of everyday life."
-    </blockquote>
-    <p className="text-xl mt-6 font-semibold tracking-wide">- Bill Gates</p>
-  </div>
-</section>
+      {/* Text - EXACTLY AS YOUR ORIGINAL */}
+      <div
+        ref={textRef}
+        className="relative z-10 text-center text-white max-w-4xl mx-auto px-6"
+        style={{ fontFamily: '"Playfair Display", serif' }}
+      >
+        <QuoteIcon className="mx-auto w-16 h-16 text-white/70 mb-6 drop-shadow-lg" />
+        <blockquote className="text-3xl md:text-5xl font-medium italic leading-snug">
+          "The advance of technology is based on making it fit in so that you
+          don't really even notice it, so it's part of everyday life."
+        </blockquote>
+        <p className="text-xl mt-6 font-semibold tracking-wide">- Bill Gates</p>
+      </div>
+    </section>
   );
 };
 
