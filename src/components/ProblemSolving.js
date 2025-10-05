@@ -7,13 +7,10 @@ import {
   FaPuzzlePiece,
   FaBrain,
   FaRocket,
-  FaCode,
-  FaChartLine,
 } from "react-icons/fa";
 import {
   SiLeetcode,
   SiCodeforces,
-  SiCodingninjas,
   SiGeeksforgeeks,
 } from "react-icons/si";
 
@@ -28,27 +25,23 @@ const ProblemSolving = () => {
     leetcode: {
       name: "LeetCode",
       Icon: SiLeetcode,
-      stats: "300+ Problems", // Change from "500+" to "300+"
+      stats: "300+ Problems",
       color: "from-orange-500 to-red-500",
-      description:
-        "Mastering data structures and algorithms through consistent practice",
+      description: "Mastering data structures and algorithms through consistent practice",
     },
     codeforces: {
       name: "Codeforces",
       Icon: SiCodeforces,
       stats: "Started Recently",
       color: "from-red-500 to-purple-600",
-      description:
-        "Competitive programming challenges that push logical thinking limits",
+      description: "Competitive programming challenges that push logical thinking limits",
     },
     gfg: {
-      // Replace codingninjas with gfg
       name: "GeeksforGeeks",
-      Icon: SiGeeksforgeeks, // You'll need to import this
-      stats: "150+ Problems", // Change from "Top Performer" to "150+ Problems"
+      Icon: SiGeeksforgeeks,
+      stats: "150+ Problems",
       color: "from-green-500 to-emerald-600",
-      description:
-        "Structured learning path with industry-relevant problem sets",
+      description: "Structured learning path with industry-relevant problem sets",
     },
   };
 
@@ -56,55 +49,65 @@ const ProblemSolving = () => {
     {
       icon: FaChess,
       title: "Strategic Thinking",
-      description:
-        "Approaching problems like a chess game - thinking multiple moves ahead and anticipating edge cases",
+      description: "Approaching problems like a chess game - thinking multiple moves ahead and anticipating edge cases",
       color: "from-purple-500 to-pink-500",
     },
     {
       icon: FaPuzzlePiece,
       title: "Pattern Recognition",
-      description:
-        "Identifying recurring patterns and applying optimized solutions across different problem domains",
+      description: "Identifying recurring patterns and applying optimized solutions across different problem domains",
       color: "from-blue-500 to-cyan-500",
     },
     {
       icon: FaBrain,
       title: "Algorithmic Mindset",
-      description:
-        "Breaking down complex problems into manageable steps with optimal time and space complexity",
+      description: "Breaking down complex problems into manageable steps with optimal time and space complexity",
       color: "from-green-500 to-emerald-500",
     },
     {
       icon: FaRocket,
       title: "Optimization Focus",
-      description:
-        "Continually refining solutions for better performance and scalability in real-world applications",
+      description: "Continually refining solutions for better performance and scalability in real-world applications",
       color: "from-orange-500 to-red-500",
     },
   ];
 
   const codingJourney = [
     { 
-        year: "2021", 
-        milestone: "Started tackling complex problems during JEE Mains & Advanced prep",  // Updated
-        achievement: "Developed strong logical thinking and problem-solving foundation"  // Updated
+      year: "2021", 
+      milestone: "Started tackling complex problems during JEE Mains & Advanced prep",
+      achievement: "Developed strong logical thinking and problem-solving foundation"
     },
     { 
-        year: "2023",  // Changed from 2022
-        milestone: "Deep dive into DSA", 
-        achievement: "Completed 300+ problems across platforms" 
+      year: "2023", 
+      milestone: "Deep dive into DSA", 
+      achievement: "Completed 300+ problems across platforms" 
     },
     { 
-        year: "2024",  // Changed from 2023
-        milestone: "Advanced algorithms mastery", 
-        achievement: "Reached Expert rating on Codeforces" 
+      year: "2024", 
+      milestone: "Advanced algorithms mastery", 
+      achievement: "Reached Expert rating on Codeforces" 
     },
     { 
-        year: "2025",  // Changed from 2024
-        milestone: "Real-world applications", 
-        achievement: "Applying algorithms to build scalable systems" 
+      year: "2025", 
+      milestone: "Real-world applications", 
+      achievement: "Applying algorithms to build scalable systems" 
     }
-];
+  ];
+
+  // Fixed particle positions (no random values)
+  const fixedParticles = [
+    { left: "10%", top: "20%", size: "3px", delay: "0s", duration: "4s" },
+    { left: "30%", top: "60%", size: "2px", delay: "0.3s", duration: "4.5s" },
+    { left: "50%", top: "40%", size: "4px", delay: "0.6s", duration: "5s" },
+    { left: "70%", top: "80%", size: "2px", delay: "0.9s", duration: "5.5s" },
+    { left: "90%", top: "30%", size: "3px", delay: "1.2s", duration: "6s" },
+    { left: "20%", top: "70%", size: "2px", delay: "1.5s", duration: "6.5s" },
+    { left: "40%", top: "10%", size: "4px", delay: "1.8s", duration: "7s" },
+    { left: "60%", top: "50%", size: "3px", delay: "2.1s", duration: "7.5s" },
+    { left: "80%", top: "90%", size: "2px", delay: "2.4s", duration: "8s" },
+    { left: "15%", top: "40%", size: "3px", delay: "2.7s", duration: "8.5s" },
+  ];
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -192,37 +195,30 @@ const ProblemSolving = () => {
       ref={sectionRef}
       className="relative min-h-screen py-24 bg-gradient-to-br from-slate-900 via-purple-900 to-blue-900 overflow-hidden"
     >
-      {/* Animated background */}
+      {/* Fixed Background Particles */}
       <div className="absolute inset-0 opacity-10">
-        {[...Array(25)].map((_, i) => (
+        {fixedParticles.map((particle, i) => (
           <div
             key={i}
             className="particle absolute rounded-full bg-cyan-400 animate-float"
             style={{
-              left: `${(i * 4) % 100}%`,
-              top: `${(i * 6) % 100}%`,
-              width: `${Math.random() * 4 + 1}px`,
-              height: `${Math.random() * 4 + 1}px`,
-              animationDelay: `${i * 0.3}s`,
-              animationDuration: `${4 + i * 0.5}s`,
+              left: particle.left,
+              top: particle.top,
+              width: particle.size,
+              height: particle.size,
+              animationDelay: particle.delay,
+              animationDuration: particle.duration,
             }}
           />
         ))}
       </div>
 
-      {/* Binary code background */}
+      {/* Fixed Binary Pattern Background */}
       <div className="absolute inset-0 opacity-5">
-        <div className="w-full h-full font-mono text-cyan-400 text-sm overflow-hidden">
-          {Array.from({ length: 50 }).map((_, i) => (
-            <div key={i} className="whitespace-nowrap animate-scroll">
-              {Array.from({ length: 100 }).map((_, j) => (
-                <span key={j} className="mx-1">
-                  {Math.random() > 0.5 ? "1" : "0"}
-                </span>
-              ))}
-            </div>
-          ))}
-        </div>
+        <div className="w-full h-full" style={{
+          backgroundImage: `linear-gradient(90deg, transparent 49%, #00FFFF 49%, #00FFFF 51%, transparent 51%)`,
+          backgroundSize: '20px 20px',
+        }} />
       </div>
 
       <div className="relative max-w-7xl mx-auto px-6">
@@ -350,7 +346,7 @@ const ProblemSolving = () => {
         <div className="text-center">
           <div className="inline-grid grid-cols-2 md:grid-cols-4 gap-8 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 p-8">
             <div>
-              <div className="text-3xl font-bold text-cyan-400 mb-2">500+</div>
+              <div className="text-3xl font-bold text-cyan-400 mb-2">450+</div>
               <div className="text-gray-300">Problems Solved</div>
             </div>
             <div>
@@ -358,7 +354,7 @@ const ProblemSolving = () => {
               <div className="text-gray-300">Years Coding</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-pink-400 mb-2">5+</div>
+              <div className="text-3xl font-bold text-pink-400 mb-2">8+</div>
               <div className="text-gray-300">Programming Languages</div>
             </div>
             <div>
@@ -371,27 +367,11 @@ const ProblemSolving = () => {
 
       <style jsx>{`
         @keyframes float {
-          0%,
-          100% {
-            transform: translateY(0px);
-          }
-          50% {
-            transform: translateY(-10px);
-          }
-        }
-        @keyframes scroll {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(-100%);
-          }
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-10px); }
         }
         .animate-float {
           animation: float 3s ease-in-out infinite;
-        }
-        .animate-scroll {
-          animation: scroll 20s linear infinite;
         }
       `}</style>
     </section>

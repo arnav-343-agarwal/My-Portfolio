@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
@@ -20,6 +20,7 @@ const Skills = () => {
     const skillsRef = useRef([]);
     const orbitRef = useRef(null);
     const textContentRef = useRef(null);
+    const [isClient, setIsClient] = useState(false);
 
     const skills = [
     { name: 'React', Icon: SiReact, color: 'text-cyan-500' },
@@ -42,6 +43,12 @@ const Skills = () => {
 ];
 
     useEffect(() => {
+        setIsClient(true);
+    }, []);
+
+    useEffect(() => {
+        if (!isClient) return;
+
         const ctx = gsap.context(() => {
             // Title animation
             gsap.from(".skills-title", {
@@ -145,7 +152,7 @@ const Skills = () => {
         }, sectionRef);
 
         return () => ctx.revert();
-    }, []);
+    }, [isClient]);
 
     const addToRefs = (el) => {
         if (el && !skillsRef.current.includes(el)) {
@@ -153,15 +160,25 @@ const Skills = () => {
         }
     };
 
-    // Calculate positions for circular layout
+    // Calculate positions for circular layout - with consistent precision
     const getSkillPosition = (index, total) => {
         const angle = (index / total) * 2 * Math.PI;
-        const radius = 220; // Adjusted for better fit in 60% width
+        const radius = 220;
+        
+        // Use fixed precision to ensure server/client consistency
+        const x = Math.cos(angle) * radius;
+        const y = Math.sin(angle) * radius;
+        
         return {
-            x: Math.cos(angle) * radius,
-            y: Math.sin(angle) * radius
+            x: Number(x.toFixed(3)), // Fixed precision
+            y: Number(y.toFixed(3))  // Fixed precision
         };
     };
+
+    // Pre-calculate all positions to ensure consistency
+    const skillPositions = skills.map((_, index) => 
+        getSkillPosition(index, skills.length)
+    );
 
     return (
         <section 
@@ -203,39 +220,41 @@ const Skills = () => {
                                 </div>
                             </div>
 
-                            {/* Skills Orbit */}
-                            <div ref={orbitRef} className="skill-orbit absolute inset-0">
-                                {skills.map((skill, index) => {
-                                    const position = getSkillPosition(index, skills.length);
-                                    return (
-                                        <div
-                                            key={index}
-                                            ref={addToRefs}
-                                            className="skill-item absolute cursor-pointer group"
-                                            style={{
-                                                left: `calc(50% + ${position.x}px)`,
-                                                top: `calc(50% + ${position.y}px)`,
-                                                transform: 'translate(-50%, -50%)'
-                                            }}
-                                        >
-                                            {/* Skill Card */}
-                                            <div className="relative bg-white/90 backdrop-blur-md rounded-3xl border-2 border-gray-200 p-4 shadow-2xl hover:shadow-3xl transition-all duration-300 w-28 h-28 flex flex-col items-center justify-center">
-                                                <skill.Icon className={`w-12 h-12 ${skill.color} mb-2`} />
-                                                <span className="text-sm font-bold text-gray-800 text-center leading-tight">
-                                                    {skill.name}
-                                                </span>
-                                                
-                                                {/* Hover Glow */}
-                                                <div className="absolute inset-0 rounded-3xl bg-white opacity-0 group-hover:opacity-20 blur-md -z-10 transition-opacity duration-300" />
-                                            </div>
+                            {/* Skills Orbit - Only render on client to avoid hydration mismatch */}
+                            {isClient && (
+                                <div ref={orbitRef} className="skill-orbit absolute inset-0">
+                                    {skills.map((skill, index) => {
+                                        const position = skillPositions[index];
+                                        return (
+                                            <div
+                                                key={index}
+                                                ref={addToRefs}
+                                                className="skill-item absolute cursor-pointer group"
+                                                style={{
+                                                    left: `calc(50% + ${position.x}px)`,
+                                                    top: `calc(50% + ${position.y}px)`,
+                                                    transform: 'translate(-50%, -50%)'
+                                                }}
+                                            >
+                                                {/* Skill Card */}
+                                                <div className="relative bg-white/90 backdrop-blur-md rounded-3xl border-2 border-gray-200 p-4 shadow-2xl hover:shadow-3xl transition-all duration-300 w-28 h-28 flex flex-col items-center justify-center">
+                                                    <skill.Icon className={`w-12 h-12 ${skill.color} mb-2`} />
+                                                    <span className="text-sm font-bold text-gray-800 text-center leading-tight">
+                                                        {skill.name}
+                                                    </span>
+                                                    
+                                                    {/* Hover Glow */}
+                                                    <div className="absolute inset-0 rounded-3xl bg-white opacity-0 group-hover:opacity-20 blur-md -z-10 transition-opacity duration-300" />
+                                                </div>
 
-                                            {/* Connecting Line */}
-                                            <div className="absolute top-1/2 left-1/2 w-1 h-24 bg-gray-300/50 -translate-y-24 -translate-x-1/2 -z-20 origin-top" 
-                                                 style={{ transform: `translate(-50%, -100%) rotate(${(index / skills.length) * 360}deg)` }} />
-                                        </div>
-                                    );
-                                })}
-                            </div>
+                                                {/* Connecting Line */}
+                                                <div className="absolute top-1/2 left-1/2 w-1 h-24 bg-gray-300/50 -translate-y-24 -translate-x-1/2 -z-20 origin-top" 
+                                                     style={{ transform: `translate(-50%, -100%) rotate(${(index / skills.length) * 360}deg)` }} />
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            )}
 
                             {/* Outer Rings */}
                             <div className="absolute inset-0 border-3 border-gray-200/50 rounded-full m-16 -z-10"></div>
