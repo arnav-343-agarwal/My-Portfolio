@@ -10,6 +10,7 @@ const About = () => {
   const sectionRef = useRef(null);
   const imageRef = useRef(null);
   const titleRef = useRef(null);
+  const containerRef = useRef(null);
   const [isMounted, setIsMounted] = useState(false);
 
   const paras = [
@@ -54,6 +55,19 @@ const About = () => {
     if (!isMounted) return;
 
     const ctx = gsap.context(() => {
+      // Container entrance animation
+      gsap.from(containerRef.current, {
+        scale: 0.95,
+        opacity: 0,
+        duration: 1.5,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 85%",
+          toggleActions: "play none none reverse",
+        },
+      });
+
       // Animate title
       gsap.from(titleRef.current, {
         y: 100,
@@ -173,114 +187,129 @@ const About = () => {
   }, [isMounted]);
 
   return (
-    <section ref={sectionRef} className="relative w-full min-h-screen py-24 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 overflow-hidden">
+    <section ref={sectionRef} className="relative w-full min-h-screen py-24 bg-white overflow-hidden">
       
-      {/* Animated background particles - FIXED POSITIONS */}
-      <div className="absolute inset-0 opacity-10">
-        {fixedParticles.map((particle, i) => (
-          <div
-            key={i}
-            className="particle absolute w-2 h-2 bg-blue-400 rounded-full"
-            style={{
-              left: particle.left,
-              top: particle.top,
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Animated grid background */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="w-full h-full" style={{
-          backgroundImage: `linear-gradient(#e5e7eb 1px, transparent 1px), linear-gradient(90deg, #e5e7eb 1px, transparent 1px)`,
-          backgroundSize: '50px 50px',
-        }} />
-      </div>
-
-      <h2 
-        ref={titleRef}
-        className="text-center text-6xl font-bold mb-16 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent"
+      {/* Royal Container */}
+      <div
+        ref={containerRef}
+        className="relative mx-6 lg:mx-12 xl:mx-20 min-h-[90vh] rounded-[3rem] bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 overflow-hidden shadow-2xl shadow-blue-500/20 border border-blue-500/30"
       >
-        Professional Snapshot
-      </h2>
+        {/* Decorative Corner Accents */}
+        <div className="absolute top-0 left-0 w-32 h-32 border-t-2 border-l-2 border-cyan-400/50 rounded-tl-[3rem]"></div>
+        <div className="absolute top-0 right-0 w-32 h-32 border-t-2 border-r-2 border-blue-400/50 rounded-tr-[3rem]"></div>
+        <div className="absolute bottom-0 left-0 w-32 h-32 border-b-2 border-l-2 border-cyan-400/50 rounded-bl-[3rem]"></div>
+        <div className="absolute bottom-0 right-0 w-32 h-32 border-b-2 border-r-2 border-blue-400/50 rounded-br-[3rem]"></div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center relative z-10 px-8">
-        {/* Enhanced GIF container - Centered with proper spacing */}
-        <div 
-          ref={imageRef}
-          className="relative w-full max-w-2xl h-[550px] flex items-center justify-center mx-auto lg:ml-12"
+        {/* Inner Glow Effect */}
+        <div className="absolute inset-0 rounded-[3rem] shadow-inset-glow pointer-events-none"></div>
+
+        {/* Animated background particles - FIXED POSITIONS */}
+        <div className="absolute inset-0 opacity-10">
+          {fixedParticles.map((particle, i) => (
+            <div
+              key={i}
+              className="particle absolute w-2 h-2 bg-blue-400 rounded-full"
+              style={{
+                left: particle.left,
+                top: particle.top,
+              }}
+            />
+          ))}
+        </div>
+
+        {/* Animated grid background */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="w-full h-full" style={{
+            backgroundImage: `linear-gradient(#e5e7eb 1px, transparent 1px), linear-gradient(90deg, #e5e7eb 1px, transparent 1px)`,
+            backgroundSize: '50px 50px',
+          }} />
+        </div>
+
+        <h2 
+          ref={titleRef}
+          className="text-center text-6xl font-bold mb-16 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent pt-12"
         >
-          {/* Glass morphism container */}
-          <div className="absolute inset-0 bg-white/10 backdrop-blur-md rounded-3xl border border-white/20 shadow-2xl transform perspective-1000">
-            {/* Animated border */}
-            <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-blue-500/30 to-cyan-500/30 opacity-0 animate-pulse-slow" />
-            
-            {/* Enhanced wavy mask container */}
-            <div className="absolute inset-4 rounded-2xl overflow-hidden">
-              <svg className="absolute w-0 h-0">
-                <clipPath id="wavyClip" clipPathUnits="objectBoundingBox">
-                  <path
-                    d="M0,0.1 
-               C0.2,0.2,0.4,0.05,0.5,0.1 
-               C0.6,0.15,0.8,0.05,1,0.1 
-               L1,0.9 
-               C0.8,0.8,0.6,0.95,0.5,0.9 
-               C0.4,0.85,0.2,0.95,0,0.9 Z"
-                  />
-                </clipPath>
-              </svg>
+          Professional Snapshot
+        </h2>
 
-              <div
-                className="absolute inset-0 w-full h-full transform hover:scale-105 transition-transform duration-3000"
-                style={{ clipPath: "url(#wavyClip)" }}
-              >
-                <Image
-                  src="/snapshot.gif"
-                  alt="Professional Snapshot"
-                  fill
-                  style={{ objectFit: "cover" }}
-                  unoptimized
-                  priority
-                  className="hover:scale-110 transition-transform duration-3000"
-                />
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center relative z-10 px-8">
+          {/* Enhanced GIF container - Centered with proper spacing */}
+          <div 
+            ref={imageRef}
+            className="relative w-full max-w-2xl h-[550px] flex items-center justify-center mx-auto lg:ml-12"
+          >
+            {/* Glass morphism container */}
+            <div className="absolute inset-0 bg-white/10 backdrop-blur-md rounded-3xl border border-white/20 shadow-2xl transform perspective-1000">
+              {/* Animated border */}
+              <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-blue-500/30 to-cyan-500/30 opacity-0 animate-pulse-slow" />
+              
+              {/* Enhanced wavy mask container */}
+              <div className="absolute inset-4 rounded-2xl overflow-hidden">
+                <svg className="absolute w-0 h-0">
+                  <clipPath id="wavyClip" clipPathUnits="objectBoundingBox">
+                    <path
+                      d="M0,0.1 
+                 C0.2,0.2,0.4,0.05,0.5,0.1 
+                 C0.6,0.15,0.8,0.05,1,0.1 
+                 L1,0.9 
+                 C0.8,0.8,0.6,0.95,0.5,0.9 
+                 C0.4,0.85,0.2,0.95,0,0.9 Z"
+                    />
+                  </clipPath>
+                </svg>
+
+                <div
+                  className="absolute inset-0 w-full h-full transform hover:scale-105 transition-transform duration-3000"
+                  style={{ clipPath: "url(#wavyClip)" }}
+                >
+                  <Image
+                    src="/snapshot.gif"
+                    alt="Professional Snapshot"
+                    fill
+                    style={{ objectFit: "cover" }}
+                    unoptimized
+                    priority
+                    className="hover:scale-110 transition-transform duration-3000"
+                  />
+                </div>
               </div>
+            </div>
+          </div>
+
+          {/* Enhanced paragraphs container - Elevated and centered */}
+          <div className="relative h-80 overflow-hidden flex items-center justify-center -mt-8">
+            <div className="relative w-full max-w-2xl">
+              {paras.map((item, idx) => (
+                <div key={idx} className="about-content absolute inset-0 flex flex-col justify-center">
+                  <h3 className="about-highlight text-3xl font-bold text-center mb-6 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+                    {item.highlight}
+                  </h3>
+                  <p className="about-para text-xl text-gray-200 leading-relaxed text-center px-8">
+                    {item.text}
+                  </p>
+                </div>
+              ))}
+            </div>
+            
+            {/* Progress indicators */}
+            <div className="absolute right-4 top-1/2 transform -translate-y-1/2 flex flex-col gap-4">
+              {paras.map((_, idx) => (
+                <div
+                  key={idx}
+                  className="progress-dot w-3 h-3 rounded-full border-2 border-blue-400 transition-all duration-300"
+                  data-index={idx}
+                />
+              ))}
             </div>
           </div>
         </div>
 
-        {/* Enhanced paragraphs container - Elevated and centered */}
-        <div className="relative h-80 overflow-hidden flex items-center justify-center -mt-8">
-          <div className="relative w-full max-w-2xl">
-            {paras.map((item, idx) => (
-              <div key={idx} className="about-content absolute inset-0 flex flex-col justify-center">
-                <h3 className="about-highlight text-3xl font-bold text-center mb-6 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-                  {item.highlight}
-                </h3>
-                <p className="about-para text-xl text-gray-200 leading-relaxed text-center px-8">
-                  {item.text}
-                </p>
-              </div>
-            ))}
+        {/* Scroll indicator */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2">
+          <span className="text-blue-400 text-sm font-light">Scroll to explore</span>
+          <div className="w-6 h-10 border-2 border-blue-400 rounded-full flex justify-center">
+            <div className="w-1 h-3 bg-blue-400 rounded-full mt-2 animate-bounce" />
           </div>
-          
-          {/* Progress indicators */}
-          <div className="absolute right-4 top-1/2 transform -translate-y-1/2 flex flex-col gap-4">
-            {paras.map((_, idx) => (
-              <div
-                key={idx}
-                className="progress-dot w-3 h-3 rounded-full border-2 border-blue-400 transition-all duration-300"
-                data-index={idx}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2">
-        <span className="text-blue-400 text-sm font-light">Scroll to explore</span>
-        <div className="w-6 h-10 border-2 border-blue-400 rounded-full flex justify-center">
-          <div className="w-1 h-3 bg-blue-400 rounded-full mt-2 animate-bounce" />
         </div>
       </div>
 
@@ -290,6 +319,11 @@ const About = () => {
         }
         .animate-pulse-slow {
           animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        .shadow-inset-glow {
+          box-shadow: inset 0 0 50px rgba(59, 130, 246, 0.1),
+                      inset 0 0 80px rgba(34, 211, 238, 0.05),
+                      inset 0 0 100px rgba(6, 182, 212, 0.05);
         }
         @keyframes pulse {
           0%, 100% { opacity: 0; }
