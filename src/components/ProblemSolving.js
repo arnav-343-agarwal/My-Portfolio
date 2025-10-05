@@ -19,6 +19,7 @@ gsap.registerPlugin(ScrollTrigger);
 const ProblemSolving = () => {
   const sectionRef = useRef(null);
   const cardsRef = useRef([]);
+  const containerRef = useRef(null);
   const [activePlatform, setActivePlatform] = useState("leetcode");
 
   const platforms = {
@@ -111,6 +112,19 @@ const ProblemSolving = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
+      // Container entrance animation
+      gsap.from(containerRef.current, {
+        scale: 0.95,
+        opacity: 0,
+        duration: 1.5,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 85%",
+          toggleActions: "play none none reverse",
+        },
+      });
+
       // Title animation
       gsap.from(".ps-title", {
         y: 100,
@@ -118,7 +132,7 @@ const ProblemSolving = () => {
         duration: 1.2,
         ease: "power3.out",
         scrollTrigger: {
-          trigger: sectionRef.current,
+          trigger: containerRef.current,
           start: "top 80%",
           toggleActions: "play none none reverse",
         },
@@ -193,173 +207,188 @@ const ProblemSolving = () => {
     <section
       id="problem-solving"
       ref={sectionRef}
-      className="relative min-h-screen py-24 bg-gradient-to-br from-slate-900 via-purple-900 to-blue-900 overflow-hidden"
+      className="relative min-h-screen py-24 bg-white overflow-hidden"
     >
-      {/* Fixed Background Particles */}
-      <div className="absolute inset-0 opacity-10">
-        {fixedParticles.map((particle, i) => (
-          <div
-            key={i}
-            className="particle absolute rounded-full bg-cyan-400 animate-float"
-            style={{
-              left: particle.left,
-              top: particle.top,
-              width: particle.size,
-              height: particle.size,
-              animationDelay: particle.delay,
-              animationDuration: particle.duration,
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Fixed Binary Pattern Background */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="w-full h-full" style={{
-          backgroundImage: `linear-gradient(90deg, transparent 49%, #00FFFF 49%, #00FFFF 51%, transparent 51%)`,
-          backgroundSize: '20px 20px',
-        }} />
-      </div>
-
-      <div className="relative max-w-7xl mx-auto px-6">
-        {/* Main Title */}
-        <h2 className="ps-title text-5xl md:text-7xl font-bold text-center mb-20 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-          Problem Solving DNA
-        </h2>
-
-        {/* Platforms Section */}
-        <div className="platforms-section mb-20">
-          <h3 className="text-3xl font-bold text-white text-center mb-12">
-            Competitive Programming Platforms
-          </h3>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            {Object.entries(platforms).map(([key, platform]) => (
-              <div
-                key={key}
-                ref={addToRefs}
-                className="platform-card relative group cursor-pointer"
-                onClick={() => setActivePlatform(key)}
-              >
-                <div
-                  className={`relative bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 p-6 text-center transition-all duration-300 group-hover:bg-white/15 ${
-                    activePlatform === key ? "scale-105 border-cyan-400" : ""
-                  }`}
-                >
-                  <platform.Icon
-                    className={`w-16 h-16 mx-auto mb-4 ${
-                      activePlatform === key ? "text-cyan-400" : "text-white"
-                    }`}
-                  />
-                  <h4 className="text-xl font-bold text-white mb-2">
-                    {platform.name}
-                  </h4>
-                  <p className="text-cyan-300 font-semibold mb-3">
-                    {platform.stats}
-                  </p>
-                  <p className="text-gray-300 text-sm">
-                    {platform.description}
-                  </p>
-
-                  {/* Active indicator */}
-                  {activePlatform === key && (
-                    <div className="absolute -top-2 -right-2 w-4 h-4 bg-cyan-400 rounded-full animate-ping" />
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
+      {/* Main Container with Royal Styling */}
+      <div
+        ref={containerRef}
+        className="relative mx-6 lg:mx-12 xl:mx-20 min-h-[90vh] rounded-[3rem] bg-gradient-to-br from-slate-900 via-purple-900 to-blue-900 overflow-hidden shadow-2xl shadow-purple-500/20 border border-purple-500/30"
+      >
+        {/* Fixed Background Particles */}
+        <div className="absolute inset-0 opacity-10">
+          {fixedParticles.map((particle, i) => (
+            <div
+              key={i}
+              className="particle absolute rounded-full bg-cyan-400 animate-float"
+              style={{
+                left: particle.left,
+                top: particle.top,
+                width: particle.size,
+                height: particle.size,
+                animationDelay: particle.delay,
+                animationDuration: particle.duration,
+              }}
+            />
+          ))}
         </div>
 
-        {/* Split Layout - Problem Solving Philosophy */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start mb-20">
-          {/* Left - Problem Solving Areas */}
-          <div className="areas-section">
-            <h3 className="text-3xl font-bold text-white mb-8">
-              My Approach to Problems
+        {/* Fixed Binary Pattern Background */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="w-full h-full" style={{
+            backgroundImage: `linear-gradient(90deg, transparent 49%, #00FFFF 49%, #00FFFF 51%, transparent 51%)`,
+            backgroundSize: '20px 20px',
+          }} />
+        </div>
+
+        {/* Decorative Corner Accents */}
+        <div className="absolute top-0 left-0 w-32 h-32 border-t-2 border-l-2 border-cyan-400/50 rounded-tl-[3rem]"></div>
+        <div className="absolute top-0 right-0 w-32 h-32 border-t-2 border-r-2 border-purple-400/50 rounded-tr-[3rem]"></div>
+        <div className="absolute bottom-0 left-0 w-32 h-32 border-b-2 border-l-2 border-blue-400/50 rounded-bl-[3rem]"></div>
+        <div className="absolute bottom-0 right-0 w-32 h-32 border-b-2 border-r-2 border-pink-400/50 rounded-br-[3rem]"></div>
+
+        {/* Inner Glow Effect */}
+        <div className="absolute inset-0 rounded-[3rem] shadow-inset-glow pointer-events-none"></div>
+
+        <div className="relative max-w-7xl mx-auto px-6 py-12">
+          {/* Main Title */}
+          <h2 className="ps-title text-5xl md:text-7xl font-bold text-center mb-20 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+            Problem Solving DNA
+          </h2>
+
+          {/* Platforms Section */}
+          <div className="platforms-section mb-20">
+            <h3 className="text-3xl font-bold text-white text-center mb-12">
+              Competitive Programming Platforms
             </h3>
-            <div className="space-y-6">
-              {problemSolvingAreas.map((area, index) => (
-                <div key={index} className="ps-area-card relative group">
-                  <div className="bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 p-6 transition-all duration-300 group-hover:bg-white/15">
-                    <div className="flex items-start gap-4">
-                      <div
-                        className={`p-3 rounded-xl bg-gradient-to-r ${area.color}`}
-                      >
-                        <area.icon className="w-6 h-6 text-white" />
-                      </div>
-                      <div>
-                        <h4 className="text-xl font-bold text-white mb-2">
-                          {area.title}
-                        </h4>
-                        <p className="text-gray-300 leading-relaxed">
-                          {area.description}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
 
-          {/* Right - Why I Love Problem Solving */}
-          <div className="journey-section">
-            <h3 className="text-3xl font-bold text-white mb-8">The Journey</h3>
-            <div className="space-y-6">
-              {codingJourney.map((step, index) => (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+              {Object.entries(platforms).map(([key, platform]) => (
                 <div
-                  key={index}
-                  className="journey-item relative pl-8 border-l-2 border-cyan-400/30"
+                  key={key}
+                  ref={addToRefs}
+                  className="platform-card relative group cursor-pointer"
+                  onClick={() => setActivePlatform(key)}
                 >
-                  <div className="absolute -left-2 top-0 w-4 h-4 bg-cyan-400 rounded-full" />
-                  <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4">
-                    <div className="text-cyan-400 font-bold text-lg mb-1">
-                      {step.year}
-                    </div>
-                    <div className="text-white font-semibold mb-2">
-                      {step.milestone}
-                    </div>
-                    <div className="text-gray-300 text-sm">
-                      {step.achievement}
-                    </div>
+                  <div
+                    className={`relative bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 p-6 text-center transition-all duration-300 group-hover:bg-white/15 ${
+                      activePlatform === key ? "scale-105 border-cyan-400" : ""
+                    }`}
+                  >
+                    <platform.Icon
+                      className={`w-16 h-16 mx-auto mb-4 ${
+                        activePlatform === key ? "text-cyan-400" : "text-white"
+                      }`}
+                    />
+                    <h4 className="text-xl font-bold text-white mb-2">
+                      {platform.name}
+                    </h4>
+                    <p className="text-cyan-300 font-semibold mb-3">
+                      {platform.stats}
+                    </p>
+                    <p className="text-gray-300 text-sm">
+                      {platform.description}
+                    </p>
+
+                    {/* Active indicator */}
+                    {activePlatform === key && (
+                      <div className="absolute -top-2 -right-2 w-4 h-4 bg-cyan-400 rounded-full animate-ping" />
+                    )}
                   </div>
                 </div>
               ))}
             </div>
+          </div>
 
-            {/* Current Focus */}
-            <div className="mt-8 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 rounded-2xl p-6 border border-cyan-400/30">
-              <h4 className="text-xl font-bold text-white mb-3">
-                Current Focus
-              </h4>
-              <p className="text-gray-300 leading-relaxed">
-                Bridging the gap between competitive programming and real-world
-                software engineering - applying algorithmic thinking to build
-                scalable, efficient systems that solve meaningful problems.
-              </p>
+          {/* Split Layout - Problem Solving Philosophy */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start mb-20">
+            {/* Left - Problem Solving Areas */}
+            <div className="areas-section">
+              <h3 className="text-3xl font-bold text-white mb-8">
+                My Approach to Problems
+              </h3>
+              <div className="space-y-6">
+                {problemSolvingAreas.map((area, index) => (
+                  <div key={index} className="ps-area-card relative group">
+                    <div className="bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 p-6 transition-all duration-300 group-hover:bg-white/15">
+                      <div className="flex items-start gap-4">
+                        <div
+                          className={`p-3 rounded-xl bg-gradient-to-r ${area.color}`}
+                        >
+                          <area.icon className="w-6 h-6 text-white" />
+                        </div>
+                        <div>
+                          <h4 className="text-xl font-bold text-white mb-2">
+                            {area.title}
+                          </h4>
+                          <p className="text-gray-300 leading-relaxed">
+                            {area.description}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Right - Why I Love Problem Solving */}
+            <div className="journey-section">
+              <h3 className="text-3xl font-bold text-white mb-8">The Journey</h3>
+              <div className="space-y-6">
+                {codingJourney.map((step, index) => (
+                  <div
+                    key={index}
+                    className="journey-item relative pl-8 border-l-2 border-cyan-400/30"
+                  >
+                    <div className="absolute -left-2 top-0 w-4 h-4 bg-cyan-400 rounded-full" />
+                    <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4">
+                      <div className="text-cyan-400 font-bold text-lg mb-1">
+                        {step.year}
+                      </div>
+                      <div className="text-white font-semibold mb-2">
+                        {step.milestone}
+                      </div>
+                      <div className="text-gray-300 text-sm">
+                        {step.achievement}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Current Focus */}
+              <div className="mt-8 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 rounded-2xl p-6 border border-cyan-400/30">
+                <h4 className="text-xl font-bold text-white mb-3">
+                  Current Focus
+                </h4>
+                <p className="text-gray-300 leading-relaxed">
+                  Bridging the gap between competitive programming and real-world
+                  software engineering - applying algorithmic thinking to build
+                  scalable, efficient systems that solve meaningful problems.
+                </p>
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Bottom Stats */}
-        <div className="text-center">
-          <div className="inline-grid grid-cols-2 md:grid-cols-4 gap-8 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 p-8">
-            <div>
-              <div className="text-3xl font-bold text-cyan-400 mb-2">450+</div>
-              <div className="text-gray-300">Problems Solved</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-purple-400 mb-2">3+</div>
-              <div className="text-gray-300">Years Coding</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-pink-400 mb-2">8+</div>
-              <div className="text-gray-300">Programming Languages</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-green-400 mb-2">∞</div>
-              <div className="text-gray-300">Passion for Learning</div>
+          {/* Bottom Stats */}
+          <div className="text-center">
+            <div className="inline-grid grid-cols-2 md:grid-cols-4 gap-8 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 p-8">
+              <div>
+                <div className="text-3xl font-bold text-cyan-400 mb-2">450+</div>
+                <div className="text-gray-300">Problems Solved</div>
+              </div>
+              <div>
+                <div className="text-3xl font-bold text-purple-400 mb-2">3+</div>
+                <div className="text-gray-300">Years Coding</div>
+              </div>
+              <div>
+                <div className="text-3xl font-bold text-pink-400 mb-2">8+</div>
+                <div className="text-gray-300">Programming Languages</div>
+              </div>
+              <div>
+                <div className="text-3xl font-bold text-green-400 mb-2">∞</div>
+                <div className="text-gray-300">Passion for Learning</div>
+              </div>
             </div>
           </div>
         </div>
@@ -372,6 +401,12 @@ const ProblemSolving = () => {
         }
         .animate-float {
           animation: float 3s ease-in-out infinite;
+        }
+        
+        .shadow-inset-glow {
+          box-shadow: inset 0 0 50px rgba(139, 92, 246, 0.1),
+                      inset 0 0 80px rgba(59, 130, 246, 0.05),
+                      inset 0 0 100px rgba(236, 72, 153, 0.05);
         }
       `}</style>
     </section>
