@@ -7,9 +7,11 @@ import {
     SiReact, SiNextdotjs, SiJavascript, SiHtml5, SiCss3, SiTailwindcss,
     SiNodedotjs, SiPython, SiExpress, SiGraphql,
     SiMongodb, SiPostgresql,
-    SiDocker, SiAmazon, SiGit, SiTypescript
+    SiDocker, SiAmazon, SiGit, SiTypescript,
+    SiRedis, SiCplusplus, SiTensorflow
+
 } from "react-icons/si";
-import { FaDatabase } from "react-icons/fa";
+import { FaDatabase, FaPlug  } from "react-icons/fa";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -20,24 +22,24 @@ const Skills = () => {
     const textContentRef = useRef(null);
 
     const skills = [
-        { name: 'React', Icon: SiReact, color: 'text-cyan-500' },
-        { name: 'Next.js', Icon: SiNextdotjs, color: 'text-gray-800' },
-        { name: 'TypeScript', Icon: SiTypescript, color: 'text-blue-600' },
-        { name: 'JavaScript', Icon: SiJavascript, color: 'text-yellow-500' },
-        { name: 'HTML5', Icon: SiHtml5, color: 'text-orange-500' },
-        { name: 'CSS3', Icon: SiCss3, color: 'text-blue-500' },
-        { name: 'TailwindCSS', Icon: SiTailwindcss, color: 'text-cyan-400' },
-        { name: 'Node.js', Icon: SiNodedotjs, color: 'text-green-500' },
-        { name: 'Python', Icon: SiPython, color: 'text-blue-400' },
-        { name: 'Express', Icon: SiExpress, color: 'text-gray-600' },
-        { name: 'GraphQL', Icon: SiGraphql, color: 'text-pink-500' },
-        { name: 'MongoDB', Icon: SiMongodb, color: 'text-green-600' },
-        { name: 'PostgreSQL', Icon: SiPostgresql, color: 'text-blue-700' },
-        { name: 'SQL', Icon: FaDatabase, color: 'text-blue-500' },
-        { name: 'Docker', Icon: SiDocker, color: 'text-blue-400' },
-        { name: 'AWS', Icon: SiAmazon, color: 'text-orange-400' },
-        { name: 'Git', Icon: SiGit, color: 'text-orange-500' },
-    ];
+    { name: 'React', Icon: SiReact, color: 'text-cyan-500' },
+    { name: 'Next.js', Icon: SiNextdotjs, color: 'text-gray-800' },
+    { name: 'TypeScript', Icon: SiTypescript, color: 'text-blue-600' },
+    { name: 'JavaScript', Icon: SiJavascript, color: 'text-yellow-500' },
+    { name: 'HTML5', Icon: SiHtml5, color: 'text-orange-500' },
+    { name: 'CSS3', Icon: SiCss3, color: 'text-blue-500' },
+    { name: 'TailwindCSS', Icon: SiTailwindcss, color: 'text-cyan-400' },
+    { name: 'Node.js', Icon: SiNodedotjs, color: 'text-green-500' },
+    { name: 'Python', Icon: SiPython, color: 'text-blue-400' },
+    { name: 'Express', Icon: SiExpress, color: 'text-gray-600' },
+    { name: 'GraphQL', Icon: SiGraphql, color: 'text-pink-500' },
+    { name: 'MongoDB', Icon: SiMongodb, color: 'text-green-600' },
+    { name: 'SQL', Icon: FaDatabase, color: 'text-blue-500' },
+    { name: 'Redis', Icon: SiRedis, color: 'text-red-500' },
+    { name: 'TensorFlow', Icon: SiTensorflow, color: 'text-orange-500' },
+    { name: 'C++', Icon: SiCplusplus, color: 'text-blue-700' },
+    { name: 'Sockets', Icon: FaPlug, color: 'text-purple-500' },
+];
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -285,27 +287,7 @@ const Skills = () => {
                             </div>
 
                             {/* Stats or Highlights */}
-                            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-200">
-                                <h4 className="text-xl font-semibold text-gray-800 mb-4">Why This Stack?</h4>
-                                <ul className="space-y-3 text-gray-600">
-                                    <li className="flex items-center gap-3">
-                                        <div className="w-2 h-2 bg-cyan-500 rounded-full"></div>
-                                        <span>Proven technologies for scalable applications</span>
-                                    </li>
-                                    <li className="flex items-center gap-3">
-                                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                                        <span>Modern development practices and workflows</span>
-                                    </li>
-                                    <li className="flex items-center gap-3">
-                                        <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-                                        <span>Strong community support and documentation</span>
-                                    </li>
-                                    <li className="flex items-center gap-3">
-                                        <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
-                                        <span>Continuous learning and adaptation to new trends</span>
-                                    </li>
-                                </ul>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>

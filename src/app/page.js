@@ -9,6 +9,7 @@ import Background from '@/components/Background';
 import Showcase from '@/components/Showcase';
 import Quote from '@/components/Quote';
 import Touch from '@/components/Touch';
+import ProblemSolving from '@/components/ProblemSolving';
 
 export default function Home() {
   return (
@@ -22,6 +23,7 @@ export default function Home() {
         <Skills />
         <Quote/>
         <Projects />
+        <ProblemSolving/>
         <Contact />
         <Touch/>
       </div>
