@@ -30,7 +30,7 @@ const experiences = [
     type: "intern"
   },
   {
-    role: "Official Management Portal Project",
+    role: "Official Query Management Portal Project",
     company: "SRM Institute of Science and Technology",
     date: "Dec 2024 - Mar 2025",
     description:
@@ -181,7 +181,7 @@ const Experience = () => {
         My Journey So Far
       </h2>
 
-      <div className="relative max-w-5xl mx-auto pl-4 md:pl-8">
+      <div className="relative max-w-4xl mx-auto pl-4 md:pl-8">
         {/* Enhanced Timeline */}
         <div className="flex flex-col md:flex-row gap-8 relative">
           
@@ -238,7 +238,7 @@ const Experience = () => {
                   <h3 className="text-md md:text-lg font-semibold text-gray-800">
                     {exp.role}
                   </h3>
-                  <p className="text-xs text-gray-500">{exp.date}</p>
+                  <p className="text-sm text-gray-500">{exp.date}</p>
                   <p className="text-gray-700 leading-relaxed text-sm">
                     {exp.description}
                   </p>
