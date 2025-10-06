@@ -12,11 +12,11 @@ const experiences = [
     company: "Booking Holdings",
     date: "January 2026",
     description:
-      "Developed a full-stack feature for the main consumer app using React and Node.js. Optimized database queries which resulted in a 20% performance increase.",
+      "Upcoming Software Engineer Intern at Booking Holdings, where I’ll be working on scalable systems and product features that impact millions of users worldwide. Eager to apply my problem-solving and development skills in a large-scale production environment.",
     images: [
       "/experience/bh-logo-1.png",
       "/experience/bh-logo-1.png",
-      "/experience/bh-logo-2.jpg",
+      "/experience/bookingcom.jpeg",
     ],
     type: "work"
   },
@@ -25,17 +25,17 @@ const experiences = [
     company: "Samsung",
     date: "Jan 2024 - Aug 2024",
     description:
-      "Redesigned and implemented the company's marketing website using Next.js. Improved SEO scores by 30% and page load times by 50%.",
+      "Worked on the DeepCache implementation project to optimize Stable Diffusion models, aiming to reduce redundant computations and improve overall efficiency. Accelerated large-scale generative model pipelines for faster experimentation and deployment.",
     images: ["/assets/exp2-1.jpg", "/experience/samsungresearch.jpeg", "/experience/samsung-2.png"],
     type: "intern"
   },
   {
-    role: "Open Source Contributor",
-    company: "Awesome Project",
-    date: "Ongoing",
+    role: "Official Management Portal Project",
+    company: "SRM Institute of Science and Technology",
+    date: "Dec 2024 - Mar 2025",
     description:
-      "Contributed features and bug fixes to a popular open-source library, collaborating with developers worldwide and learning about CI/CD pipelines.",
-    images: ["/assets/exp3-1.jpg", "/assets/exp3-2.jpg", "/assets/exp3-3.jpg"],
+      "Contributed to the development of the College Official Management Portal, streamlining academic and administrative workflows. Integrated real-time notifications, search, and export features to improve accessibility.",
+    images: ["/experience/srmlogo.png", "/experience/srmlogo.png", "/experience/srmlogo-2.png"],
     type: "opensource"
   },
 ];
@@ -244,7 +244,7 @@ const Experience = () => {
                   </p>
 
                   {/* Extra Content */}
-                  <ul className="list-disc list-inside text-gray-700 mt-1 space-y-1 text-sm">
+                  {/* <ul className="list-disc list-inside text-gray-700 mt-1 space-y-1 text-sm">
                     <li>
                       Worked with React, Node.js, and MongoDB for full-stack
                       development.
@@ -253,7 +253,7 @@ const Experience = () => {
                       Implemented feature X which improved user engagement by
                       25%.
                     </li>
-                  </ul>
+                  </ul> */}
 
                   {/* Images */}
                   <div className="flex gap-3 mt-3">
